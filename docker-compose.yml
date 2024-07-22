@@ -1,0 +1,48 @@
+networks:
+  laravel:
+    driver: bridge
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:80"
+      - "5173:5173"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/
+    depends_on:
+      - php
+    networks:
+      - laravel
+
+  php:
+    build:
+      dockerfile: ./docker/php/Dockerfile
+    container_name: php
+    restart: unless-stopped
+    tty: true
+    expose:
+      - "9000"
+      - "5173:5173"
+    volumes:
+      - .:/var/www/
+    networks:
+      - laravel    
+
+  db:
+    image: 'mysql/mysql-server:8.0'
+    environment:
+      MYSQL_HOST: ${DB_HOST}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - 3306:3306
+    networks:
+      - laravel
