@@ -14,26 +14,27 @@ class CommentsSeeder extends Seeder
     public function run(): void
     {
         DB::table('comments')->insert([
-            'comment' => 'You are missing time when to meet you, moran',
+            'comment' => 'What is the theme of escape room? Is it frightening/scary?',
             'post_id' => 2,
             'user_id' => 3
         ]);
 
          DB::table('comments')->insert([
-            'comment' => 'Boys or Girls?',
+            'comment' => 'I am a developer for quite some time now,since 2010 people 
+            are always assuming that php is going to day any day. And we are still here :) ',
             'post_id' => 4,
             'user_id' => 1
         ]);
 
           DB::table('comments')->insert([
-            'comment' => 'Can I have one?',
+            'comment' => 'Whwn did GoLang firstly appeared? ',
             'post_id' => 4,
             'user_id' => 2
         ]);
 
 
          DB::table('comments')->insert([
-            'comment' => 'We all been there :)',
+            'comment' => 'Read some of those from the list. Useful',
             'post_id' => 1,
             'user_id' => 3
         ]);
