@@ -1,14 +1,10 @@
-FROM node:10
+FROM node:14
 
-# Create and define the node_modules's cache directory.
-RUN mkdir /usr/src/cache
-WORKDIR /usr/src/cache
+WORKDIR /var/www/
+COPY . .
+COPY package.json ./
+COPY package-lock.json ./
 
-# Install the application's dependencies into the node_modules's cache directory.
-#COPY package.json ./
-#COPY package-lock.json ./
 RUN npm install
 
-# Create and define the application's working directory.
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+CMD ["npm", "run", "dev"]

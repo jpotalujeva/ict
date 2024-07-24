@@ -19,6 +19,17 @@ services:
     networks:
       - laravel
 
+  vite:
+    build:
+      dockerfile: ./docker/frontend/Dockerfile
+    container_name: vite
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/var/www/
+    networks:
+      - laravel
+
   php:
     build:
       dockerfile: ./docker/php/Dockerfile
@@ -27,16 +38,16 @@ services:
     tty: true
     expose:
       - "9000"
-      - "5173:5173"
     volumes:
       - .:/var/www/
     networks:
-      - laravel    
+      - laravel
+    depends_on:
+      - db
 
   db:
     image: 'mysql/mysql-server:8.0'
     environment:
-      MYSQL_HOST: ${DB_HOST}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
