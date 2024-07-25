@@ -19,17 +19,6 @@ services:
     networks:
       - laravel
 
-  vite:
-    build:
-      dockerfile: ./docker/frontend/Dockerfile
-    container_name: vite
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/var/www/
-    networks:
-      - laravel
-
   php:
     build:
       dockerfile: ./docker/php/Dockerfile
